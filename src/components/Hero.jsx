@@ -40,7 +40,7 @@ function Hero({ isModalOpen, openModal, closeModal }) {
             className="text-center lg:text-left mb-12 lg:mb-0 lg:mt-16"
             variants={containerVariants} initial="hidden" animate="visible"
           >
-            <motion.h1 variants={itemVariants} className="w-full text-2xl md:text-6xl text-center font-extrabold text-gray-800 mb-5 leading-tight">
+            <motion.h1 variants={itemVariants} className="w-full text-4xl md:text-6xl text-center font-extrabold text-gray-800 mb-5 leading-tight">
               Turn Ink, <br />into <span className='text-orange-500'>Intelligence.</span>
             </motion.h1>
             <motion.p variants={itemVariants} className="text-base md:text-xl text-center text-gray-600 mb-8 max-w-xl mx-auto lg:mx-0">
@@ -87,7 +87,6 @@ function Hero({ isModalOpen, openModal, closeModal }) {
               </button>
               {/* Video player remains the same */}
               <video ref={videoRef} className="w-full h-full" controls autoPlay>
-                   <source src="../assets/TextEvove-Video.webm" type="video/webm" /> {/* Check this relative path */}
                    <source src={videoSource} type="video/mp4" />
                    Your browser does not support the video tag.
                  </video>
