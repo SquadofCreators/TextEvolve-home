@@ -4,6 +4,7 @@ import video_1 from '../assets/TextEvove-Video.mp4';
 import video_1_poster from '../assets/video_poster.jpg';
 
 function Hero() {
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const videoRef = useRef(null);
   const videoSource = video_1;

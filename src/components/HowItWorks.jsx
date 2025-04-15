@@ -2,6 +2,11 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { FiUploadCloud, FiCpu, FiDownloadCloud } from 'react-icons/fi';
 
+import ImageComparisonSlider from '../components/ImageComparisonSlider'
+import AfterExtractImg from '../assets/after_extract.png'; 
+import BeforeExtractImg from '../assets/before_extract.png'; 
+
+
 const steps = [
   { icon: FiUploadCloud, title: 'Upload Document', description: 'Securely upload scans or clear images via our intuitive interface.' },
   { icon: FiCpu, title: 'AI Processing', description: 'Our Dual OCR, polishing, and translation models extract and refine the content.' },
@@ -53,6 +58,24 @@ function HowItWorks() {
                 </motion.div>
             ))}
         </motion.div>
+
+        {/* Image Comparison */}
+          <section id="comparison-demo" className="py-14 px-6">
+            <div className="container mx-auto text-center">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                See the Transformation
+              </h2>
+              <p className="text-lg text-gray-600 mb-10 max-w-2xl mx-auto">
+                Drag the slider below to compare the original document scan with the AI-digitized and enhanced output from TextEvolve.
+              </p>
+              <ImageComparisonSlider
+                beforeImageUrl={AfterExtractImg}
+                afterImageUrl={BeforeExtractImg}
+                beforeLabel="Original "  
+                afterLabel="TextEvolve" 
+              />
+            </div>
+          </section>
       </div>
     </section>
   );
