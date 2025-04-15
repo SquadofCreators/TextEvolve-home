@@ -39,7 +39,7 @@ function Navbar() {
 
             <img src={Logo} alt="TextEvolve Logo" className="h-10 inline-block mr-2" /> 
 
-            <span className={`hidden md:inline-block ${isScrolled ? 'text-gray-800' : 'text-gray-700'}`}>
+            <span className={`inline-block ${isScrolled ? 'text-gray-800' : 'text-gray-700'}`}>
               Text<span className="text-orange-600">Evolve</span>
             </span>
           </a>
