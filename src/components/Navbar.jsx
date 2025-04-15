@@ -32,7 +32,7 @@ function Navbar() {
   }; 
 
   return (
-    <nav className={`fixed top-0 z-50 w-full transition-all duration-300 ${isScrolled ? 'bg-white/95 shadow-lg backdrop-blur-sm' : 'bg-transparent'}`}>
+    <nav className={`fixed top-0 z-50 md:px-6 w-full transition-all duration-300 select-none ${isScrolled ? 'bg-white/95 shadow-lg backdrop-blur-sm' : 'bg-transparent'}`}>
       <div className="container mx-auto px-6 py-4">
         <div className="flex justify-between items-center">
           <a href="#" className={`text-2xl font-extrabold tracking-wider transition-colors duration-300 ${isScrolled ? 'text-orange-600' : 'text-gray-800 md:text-orange-600'}`}> {/* Adjust initial color if hero bg is light */}

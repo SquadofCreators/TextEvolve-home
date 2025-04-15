@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useRef, useEffect } from 'react';
 
 import Navbar from '../components/Navbar'
 import Hero from '../components/Hero'
@@ -13,18 +13,47 @@ import CTA from '../components/CTA'
 import Footer from '../components/Footer'
 
 function Home() {
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
+  useEffect(() => {
+    const handleEsc = (event) => {
+      if (event.key === 'Escape') {
+        closeModal(); 
+      }
+    };
+    if (isModalOpen) {
+      window.addEventListener('keydown', handleEsc);
+    }
+    // Cleanup listener
+    return () => {
+      window.removeEventListener('keydown', handleEsc);
+    };
+  }, [isModalOpen]);
+
   return (
-    <div>
+    <div className='w-full overflow-hidden'>
       <Navbar />
-      <Hero />
-      <Features />
-      <HowItWorks />
-      <Results />
-      <Roadmap />
-      <Team />
-      <Resources />
-      <ContactUs />
-      <CTA />
+      <main>
+        <Hero 
+          isModalOpen={isModalOpen}
+          openModal={openModal}
+          closeModal={closeModal}
+        />
+        <Features />
+        <HowItWorks />
+        <Results />
+        <Roadmap />
+        <Team />
+        <Resources 
+          openModal={openModal}
+        />
+        <ContactUs />
+        <CTA />
+      </main>
       <Footer />
     </div>
   )

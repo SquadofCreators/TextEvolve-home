@@ -1,24 +1,22 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FiDownload, FiVideo, FiExternalLink, FiBookOpen } from 'react-icons/fi';
-
-// Resources data
-import presentation from '../assets/documents/TextEvolve_Dynamic_Dreamers.pdf'; 
+import { FiDownload, FiVideo, FiExternalLink } from 'react-icons/fi';
+import presentation from '../assets/documents/TextEvolve_Dynamic_Dreamers.pdf'; // Check path
 
 const resources = [
   {
     icon: FiDownload,
     title: "Project Presentation",
-    description: "Download the detailed project overview (PPT).",
-    link: presentation,
+    description: "Download the detailed project overview (PDF).", // Changed PPT to PDF based on import
+    link: presentation, // Use the imported variable
     download: true,
   },
   {
     icon: FiVideo,
     title: "Watch Demo Video",
     description: "See TextEvolve in action in our short promo.",
-    link: "#hero-video",
-    action: "scrollToTopOrOpenModal",
+    link: "#hero", // Link to the Hero section ID
+    action: "openModal", // Use this action key
   },
   {
     icon: FiExternalLink,
@@ -29,31 +27,41 @@ const resources = [
   },
 ];
 
-function Resources() {
+// Accept openModal prop from App.jsx
+function Resources({ openModal }) {
    const cardVariants = {
         offscreen: { y: 50, opacity: 0 },
         onscreen: { y: 0, opacity: 1, transition: { type: "spring", bounce: 0.3, duration: 0.8 } }
     };
 
-  // Simplified: Assume Watch Demo scrolls to Hero for now. Proper modal requires state lifting/context.
-  const handleResourceClick = (action, link, e) => {
-    if (action === 'scrollToTopOrOpenModal') {
-      e.preventDefault(); 
+   // Updated handler
+   const handleResourceClick = (action, link, e) => {
+    if (action === 'openModal') {
+      e.preventDefault(); // Prevent default anchor behavior
 
-      // Scroll to the hero video section
-      const heroVideoSection = document.getElementById(link.replace('#', ''));
-      if (heroVideoSection) {
-        heroVideoSection.scrollIntoView({ behavior: 'smooth' });
+      // 1. Find the target section
+      const targetSection = document.getElementById(link.replace('#', '')); // Get ID from link
+
+      // 2. Scroll to the target section
+      if (targetSection) {
+        targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' }); // Scroll smoothly
+
+        // 3. Open the modal (might need slight delay for scroll to start)
+        // setTimeout(openModal, 50); // Optional small delay
+        openModal(); // Call the passed-in function
+
+      } else {
+        // Fallback or error if section not found
+        console.warn(`Target section "${link}" not found for modal trigger.`);
+        // Still open modal if section not found? Maybe...
+        openModal();
       }
-      else if (action === 'openModal') {
-        e.preventDefault(); 
-      }
-  
     }
+    // No 'else if' needed here, regular link clicks will proceed normally
   };
 
   return (
-    <section id="resources" className="py-24 px-6 bg-orange-50/50"> {/* Match HowItWorks bg */}
+    <section id="resources" className="py-24 px-6 bg-orange-50/50">
       <div className="container mx-auto text-center">
         <motion.h2
              className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-16 md:mb-20"
@@ -66,7 +74,7 @@ function Resources() {
           {resources.map((resource, index) => (
             <motion.div
               key={index}
-              className="bg-white p-8 rounded-xl shadow-lg border border-gray-100 transition-all duration-300 hover:shadow-orange-100 hover:border-orange-200 hover:shadow-xl flex flex-col text-left" // Align text left
+              className="bg-white p-8 rounded-xl shadow-lg border border-gray-100 transition-all duration-300 hover:shadow-orange-100 hover:border-orange-200 hover:shadow-xl flex flex-col text-left"
               variants={cardVariants} initial="offscreen" whileInView="onscreen" viewport={{ once: true, amount: 0.2 }}
                whileHover={{ y: -6 }}
             >
@@ -74,14 +82,16 @@ function Resources() {
               <h3 className="text-xl font-semibold text-gray-800 mb-2 flex-grow">{resource.title}</h3>
               <p className="text-gray-600 mb-6 text-sm flex-grow">{resource.description}</p>
               <a
-                href={resource.link}
+                href={resource.link} // Keep href for scrolling or external link
                 target={resource.external ? '_blank' : '_self'}
                 rel={resource.external ? 'noopener noreferrer' : ''}
-                download={resource.download ? resource.title.replace(' ', '_') + '.pdf' : undefined}
-                className="mt-auto inline-block bg-orange-100 hover:bg-orange-200 text-orange-700 py-2 px-5 rounded-md text-sm font-semibold transition-colors duration-300 text-center self-start" // Align button left
+                // Use imported variable for download name
+                download={resource.download ? `TextEvolve_Presentation.pdf` : undefined}
+                className="mt-auto inline-block bg-orange-100 hover:bg-orange-200 text-orange-700 py-2 px-5 rounded-md text-sm font-semibold transition-colors duration-300 text-center self-start"
+                // Call updated handler
                 onClick={(e) => handleResourceClick(resource.action, resource.link, e)}
               >
-                {resource.download ? 'Download' : (resource.external ? 'Visit Link' : 'Learn More')}
+                {resource.download ? 'Download PDF' : (resource.external ? 'Visit Link' : 'Watch Demo')}
               </a>
             </motion.div>
           ))}

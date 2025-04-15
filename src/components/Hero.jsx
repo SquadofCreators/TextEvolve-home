@@ -3,23 +3,18 @@ import { motion, AnimatePresence } from 'framer-motion';
 import video_1 from '../assets/TextEvove-Video.mp4';
 import video_1_poster from '../assets/video_poster.jpg';
 
-function Hero() {
+function Hero({ isModalOpen, openModal, closeModal }) {
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const videoRef = useRef(null);
+
   const videoSource = video_1;
   const videoPoster = video_1_poster; 
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => {
-    setIsModalOpen(false);
-    if (videoRef.current) videoRef.current.pause();
-  };
-
   useEffect(() => {
-    const handleEsc = (event) => { if (event.key === 'Escape') closeModal(); };
-    if (isModalOpen) window.addEventListener('keydown', handleEsc);
-    return () => window.removeEventListener('keydown', handleEsc);
+    // If the modal was open but is now closed, pause the video
+    if (!isModalOpen && videoRef.current?.played.length > 0 && !videoRef.current.paused) {
+       videoRef.current.pause();
+    }
   }, [isModalOpen]);
 
   // Animation Variants
@@ -32,7 +27,7 @@ function Hero() {
     <>
       <section
         id="hero"
-        className="relative w-full flex items-center justify-center min-h-screen px-6 py-24 pt-32 md:pt-40 lg:pt-24 bg-gradient-to-b from-orange-50 via-white to-white overflow-hidden" // Light gradient
+        className="relative w-full flex items-center justify-center min-h-screen px-6 py-24 pt-32 md:pt-40 lg:pt-24 bg-gradient-to-b from-orange-50 via-white to-white overflow-hidden select-none" 
       >
         {/* Subtle background elements */}
         <div className="absolute top-0 left-0 w-1/2 h-full opacity-30 lg:opacity-50 transform -translate-x-1/4 skew-x-[-20deg] bg-gradient-to-r from-white via-orange-100/50 to-transparent z-0"></div>
@@ -79,20 +74,23 @@ function Hero() {
         </div>
       </section>
 
-      {/* --- Modal (Functionally same, styling ensures it works on light bg) --- */}
+      {/* --- Modal --- */}
       <AnimatePresence>
         {isModalOpen && (
           <motion.div className="fixed inset-0 z-[100] flex items-center justify-center p-4" aria-labelledby="videoModalTitle" role="dialog" aria-modal="true">
+            {/* Use closeModal prop for backdrop click */}
             <motion.div className="absolute inset-0 bg-black bg-opacity-75 backdrop-blur-sm" variants={backdropVariants} initial="hidden" animate="visible" exit="exit" onClick={closeModal}></motion.div>
             <motion.div className="relative bg-black rounded-lg shadow-xl overflow-hidden w-full max-w-4xl aspect-video" variants={modalVariants} initial="hidden" animate="visible" exit="exit">
+              {/* Use closeModal prop for close button */}
               <button onClick={closeModal} className="absolute top-2 right-2 z-10 p-1 bg-black/50 hover:bg-black/70 text-white rounded-full transition-colors duration-200" aria-label="Close video modal">
-                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
               </button>
+              {/* Video player remains the same */}
               <video ref={videoRef} className="w-full h-full" controls autoPlay>
-                 <source src="../assets/TextEvove-Video.webm" type="video/webm" /> {/* Add webm for better compatibility */}
-                 <source src={videoSource} type="video/mp4" />
-                 Your browser does not support the video tag.
-               </video>
+                   <source src="../assets/TextEvove-Video.webm" type="video/webm" /> {/* Check this relative path */}
+                   <source src={videoSource} type="video/mp4" />
+                   Your browser does not support the video tag.
+                 </video>
             </motion.div>
           </motion.div>
         )}
