@@ -2,7 +2,9 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) A modern, responsive landing page designed to showcase the TextEvolve project. Built with React, Vite, Tailwind CSS, and Framer Motion, featuring a light theme with orange accents.
 
-**Live Demo:** [Link to your deployed landing page, e.g., on Netlify/Vercel] **Main Product:** [http://www.textevolve.in](http://www.textevolve.in)
+**Live Demo:** [https://squadofcreators.github.io/TextEvolve-home/](https://squadofcreators.github.io/TextEvolve-home/)
+
+**Main Product:** [http://www.textevolve.in](http://www.textevolve.in)
 
 ![TextEvolve Landing Page Screenshot] *(Screenshot showing the hero section of the landing page)*
 
@@ -77,3 +79,32 @@
     ```
 
 ## Project Structure (Simplified)
+
+    
+    textevolve-home
+    ├── public/             # Static assets (images, videos, documents)
+    ├── src/
+    │   ├── assets/         # Assets imported into components (optional)
+    │   ├── components/     # Reusable React components (Navbar, Hero, etc.)
+    │   ├── App.jsx         # Main application component
+    │   ├── index.css       # Tailwind directives & global styles
+    │   └── main.jsx        # Application entry point
+    ├── index.html          # HTML template
+    ├── tailwind.config.js  # Tailwind configuration
+    ├── vite.config.js      # Vite configuration
+    └── package.json        # Project dependencies and scripts
+
+## Customization
+
+* **Theme:** Colors, fonts, and other design tokens can be customized in `tailwind.config.js`.
+* **Content:** Update text, images, video paths, team info, roadmap details, etc., directly within the respective `.jsx` components in `src/components/`.
+* **Contact Form:** Configure the form submission in `src/components/ContactUs.jsx` to point to your backend endpoint or a third-party service (like Formspree).
+
+## License
+
+This project is licensed under the [License Name] License - see the LICENSE.md file for details. 
+
+## Contact
+
+Project developed by **Team Dynamic Dreamers**, Kathir College of Engineering, Coimbatore.
+For inquiries specific to the landing page code, please open an issue in this repository. For inquiries about the TextEvolve product itself, visit [http://www.textevolve.in](http://www.textevolve.in).
