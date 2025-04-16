@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link as ScrollTo } from 'react-scroll';
+import { Link } from 'react-router-dom'; 
 
 import Logo from '../assets/logo.svg'; 
 
@@ -32,17 +33,17 @@ function Navbar() {
   }; 
 
   return (
-    <nav className={`fixed top-0 z-50 md:px-6 w-full transition-all duration-300 select-none ${isScrolled ? 'bg-white/95 shadow-lg backdrop-blur-sm' : 'bg-transparent'}`}>
-      <div className="container mx-auto px-6 py-4">
+    <nav className={`fixed top-0 z-50 md:px-6 w-full transition-all duration-300 select-none ${isScrolled ? 'p-1' : 'bg-transparent'}`}>
+      <div className={`container mx-auto px-4 py-2 ${isScrolled ? "border bg-white border-gray-300 rounded-lg shadow-xl" : "py-4"}`}>
         <div className="flex justify-between items-center">
-          <a href="#" className={`text-2xl font-extrabold tracking-wider transition-colors duration-300 ${isScrolled ? 'text-orange-600' : 'text-gray-800 md:text-orange-600'}`}> {/* Adjust initial color if hero bg is light */}
+          <Link to="/" className={`flex items-center ${isScrolled ? 'text-gray-800' : 'text-white'}`}>
+            {/* Logo and Brand Name */}
+            <img src={Logo} alt="TextEvolve Logo" className="h-7 inline-block mr-2" />
 
-            <img src={Logo} alt="TextEvolve Logo" className="h-10 inline-block mr-2" /> 
-
-            <span className={`inline-block ${isScrolled ? 'text-gray-800' : 'text-gray-700'}`}>
+            <span className={`inline-block font-bold text-xl text-gray-800 tracking-wide`}>
               Text<span className="text-orange-600">Evolve</span>
             </span>
-          </a>
+          </Link>
 
           <div className="hidden md:flex space-x-6 items-center">
             {navLinks.map((link) => (
@@ -78,15 +79,15 @@ function Navbar() {
           </div>
         </div>
 
-        {/* Mobile Menu (light theme) */}
+        {/* Mobile Menu */}
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
-              className="md:hidden absolute top-full left-0 w-full bg-white shadow-xl border-t border-gray-200"
+              className="md:hidden absolute top-full left-0 w-full z-50 p-1"
               variants={mobileMenuVariants} 
               initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}
             >
-              <div className="flex flex-col px-4 pt-2 pb-4 space-y-1">
+              <div className="w-full  flex flex-col px-4 pt-2 pb-4 gap-5 border bg-white border-gray-300 rounded-lg shadow-xl">
                 {navLinks.map((link) => (
                   <ScrollTo
                     to={link.href.replace('#', '')} 
@@ -98,7 +99,7 @@ function Navbar() {
                 ))}
                 <ScrollTo
                   to="contact"
-                  className="bg-orange-600 hover:bg-orange-700 text-white py-2 px-5 ml-6 rounded-md transition-colors duration-300 text-sm font-medium shadow-sm cursor-pointer"
+                  className="bg-orange-600 hover:bg-orange-700 text-white text-center py-2 px-5 mt-3 rounded-md transition-colors duration-300 text-sm font-medium shadow-sm cursor-pointer"
                 >
                   Contact Us
                 </ScrollTo>
