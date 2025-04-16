@@ -88,13 +88,20 @@ function Navbar() {
             >
               <div className="flex flex-col px-4 pt-2 pb-4 space-y-1">
                 {navLinks.map((link) => (
-                  <a key={link.href} href={link.href} className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-orange-600 hover:bg-orange-50" onClick={() => setIsMobileMenuOpen(false)} >
+                  <ScrollTo
+                    to={link.href.replace('#', '')} 
+                    key={link.href}
+                    className={`text-sm font-medium transition-colors duration-300 cursor-pointer ${isScrolled ? 'text-gray-600 hover:text-orange-600' : 'text-gray-700 hover:text-orange-500'}`} // Adjust initial color
+                  >
                     {link.text}
-                  </a>
+                  </ScrollTo>
                 ))}
-                <a href="http://www.textevolve.in" target="_blank" rel="noopener noreferrer" className="block w-full text-center mt-2 bg-orange-600 hover:bg-orange-700 text-white py-2 px-4 rounded-md transition duration-300 text-base font-medium shadow-sm" onClick={() => setIsMobileMenuOpen(false)} >
-                  Explore
-                </a>
+                <ScrollTo
+                  to="contact"
+                  className="bg-orange-600 hover:bg-orange-700 text-white py-2 px-5 ml-6 rounded-md transition-colors duration-300 text-sm font-medium shadow-sm cursor-pointer"
+                >
+                  Contact Us
+                </ScrollTo>
               </div>
             </motion.div>
           )}
