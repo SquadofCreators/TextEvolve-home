@@ -93,6 +93,7 @@ function Navbar() {
                     to={link.href.replace('#', '')} 
                     key={link.href}
                     className={`text-sm font-medium transition-colors duration-300 cursor-pointer ${isScrolled ? 'text-gray-600 hover:text-orange-600' : 'text-gray-700 hover:text-orange-500'}`} // Adjust initial color
+                    onClick={toggleMobileMenu} 
                   >
                     {link.text}
                   </ScrollTo>
@@ -100,6 +101,7 @@ function Navbar() {
                 <ScrollTo
                   to="contact"
                   className="bg-orange-600 hover:bg-orange-700 text-white text-center py-2 px-5 mt-3 rounded-md transition-colors duration-300 text-sm font-medium shadow-sm cursor-pointer"
+                  onClick={toggleMobileMenu}
                 >
                   Contact Us
                 </ScrollTo>
