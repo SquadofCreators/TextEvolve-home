@@ -87,7 +87,7 @@ function Navbar() {
               variants={mobileMenuVariants} 
               initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}
             >
-              <div className="w-full  flex flex-col px-4 pt-2 pb-4 gap-5 border bg-white border-gray-300 rounded-lg shadow-xl">
+              <div className="w-full  flex flex-col p-4 gap-5 border bg-white border-gray-300 rounded-lg shadow-xl">
                 {navLinks.map((link) => (
                   <ScrollTo
                     to={link.href.replace('#', '')} 
